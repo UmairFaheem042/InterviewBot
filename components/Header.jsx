@@ -12,7 +12,7 @@ const Header = () => {
     <header className="bg-white border-b">
       <div className="mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex-1 md:flex md:items-center md:gap-12">
+          <div className="md:flex md:items-center md:gap-12">
             <Link href="/dashboard" className="block text-teal-600">
               <img src="/logo.svg" alt="Logo404" className="w-[70px]" />
             </Link>
@@ -24,7 +24,7 @@ const Header = () => {
                 <li>
                   <Link
                     className={`${
-                      currentTab === "/dashboard"
+                      currentTab.startsWith("/dashboard")
                         ? "text-pink-500 font-bold"
                         : "text-gray-500 hover:text-gray-500/75"
                     } transition `}
@@ -37,7 +37,8 @@ const Header = () => {
                 <li>
                   <Link
                     className={`${
-                      currentTab === "/questions"
+                      // currentTab === "/questions"
+                      currentTab.startsWith("/questions")
                         ? "text-pink-500 font-bold"
                         : "text-gray-500 hover:text-gray-500/75"
                     } transition `}
@@ -50,7 +51,8 @@ const Header = () => {
                 <li>
                   <Link
                     className={`${
-                      currentTab === "/upgrade"
+                      // currentTab === "/upgrade"
+                      currentTab.startsWith("/upgrade")
                         ? "text-pink-500 font-bold"
                         : "text-gray-500 hover:text-gray-500/75"
                     } transition `}
@@ -63,7 +65,8 @@ const Header = () => {
                 <li>
                   <Link
                     className={`${
-                      currentTab === "/working"
+                      // currentTab === "/working"
+                      currentTab.startsWith("/working")
                         ? "text-pink-500 font-bold"
                         : "text-gray-500 hover:text-gray-500/75"
                     } transition `}
@@ -113,7 +116,8 @@ const Header = () => {
                   <li>
                     <Link
                       className={`${
-                        currentTab === "/dashboard"
+                        // currentTab === "/dashboard"
+                        currentTab.startsWith("/dashboard")
                           ? "text-pink-500 font-bold"
                           : "text-gray-500 hover:text-gray-500/75"
                       } transition `}
@@ -126,7 +130,8 @@ const Header = () => {
                   <li>
                     <Link
                       className={`${
-                        currentTab === "/questions"
+                        // currentTab === "/questions"
+                        currentTab.startsWith("/questions")
                           ? "text-pink-500 font-bold"
                           : "text-gray-500 hover:text-gray-500/75"
                       } transition `}
@@ -139,7 +144,8 @@ const Header = () => {
                   <li>
                     <Link
                       className={`${
-                        currentTab === "/upgrade"
+                        // currentTab === "/upgrade"
+                        currentTab.startsWith("/upgrade")
                           ? "text-pink-500 font-bold"
                           : "text-gray-500 hover:text-gray-500/75"
                       } transition `}
@@ -152,7 +158,8 @@ const Header = () => {
                   <li>
                     <Link
                       className={`${
-                        currentTab === "/working"
+                        // currentTab === "/working"
+                        currentTab.startsWith("/working")
                           ? "text-pink-500 font-bold"
                           : "text-gray-500 hover:text-gray-500/75"
                       } transition `}

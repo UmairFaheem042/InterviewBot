@@ -19,6 +19,7 @@ import { LoaderCircleIcon, X } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
+import { useRouter } from "next/navigation";
 
 const AddNewInterview = () => {
   const [openDialog, setOpenDialog] = useState(false);
@@ -28,6 +29,7 @@ const AddNewInterview = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [interviewResponse, setInterviewResponse] = useState([]);
   const { user } = useUser();
+  const router = useRouter();
 
   async function handleStartInterview(e) {
     e.preventDefault();
@@ -53,11 +55,8 @@ const AddNewInterview = () => {
           .returning({ mockId: MockInterview.mockId });
         console.log(resp);
         if (resp) {
-          // setOpenDialog(false);
-          // setJobRole("");
-          // setJobDesc("");
-          // setJobExp("");
           formReset();
+          router.push(`/dashboard/interview/${resp[0]?.mockId}`);
         }
       } catch (error) {
         console.log("Error while saving interview to DB: ", error);
