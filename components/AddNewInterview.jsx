@@ -15,7 +15,7 @@ import { useState } from "react";
 import { GeneratePrompt } from "../utils/PromptGeneration";
 import { db } from "../utils/db";
 import { MockInterview } from "../utils/schema";
-import { LoaderCircleIcon } from "lucide-react";
+import { LoaderCircleIcon, X } from "lucide-react";
 import { useUser } from "@clerk/nextjs";
 import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
@@ -35,6 +35,8 @@ const AddNewInterview = () => {
     const result = await GeneratePrompt(jobRole, jobDesc, jobExp);
     console.log(result.sampleQuestions);
     setInterviewResponse(result.sampleQuestions);
+
+    // error
     if (result) {
       try {
         const resp = await db
@@ -50,6 +52,13 @@ const AddNewInterview = () => {
           })
           .returning({ mockId: MockInterview.mockId });
         console.log(resp);
+        if (resp) {
+          // setOpenDialog(false);
+          // setJobRole("");
+          // setJobDesc("");
+          // setJobExp("");
+          formReset();
+        }
       } catch (error) {
         console.log("Error while saving interview to DB: ", error);
       }
@@ -60,14 +69,27 @@ const AddNewInterview = () => {
 
     // setOpenDialog((prev) => !prev);
   }
+
+  function formReset() {
+    setOpenDialog(false);
+    setJobRole("");
+    setJobDesc("");
+    setJobExp("");
+  }
   return (
     <div className="">
-      <Dialog>
-        <DialogTrigger asChild>
+      <Dialog open={openDialog} className="relative">
+        <DialogTrigger asChild onClick={() => setOpenDialog((prev) => !prev)}>
           <Button>+ New Interview</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
+            <button
+              className="absolute right-4 top-4 rounded-sm opacity-70 ring-offset-background transition-opacity hover:opacity-100 outline-none  data-[state=open]:bg-accent data-[state=open]:text-muted-foreground cursor-pointer"
+              onClick={formReset}
+            >
+              <X className="h-4 w-4" />
+            </button>
             <DialogTitle className="text-xl font-bold">
               Customize your Interview
             </DialogTitle>
@@ -124,7 +146,13 @@ const AddNewInterview = () => {
               </div>
               <div className="mt-4 flex justify-between gap-4">
                 {/* <DialogTrigger asChild> */}
-                <Button type="submit" disabled={isLoading}>
+                <Button
+                  type="submit"
+                  disabled={isLoading}
+                  onClick={() => {
+                    // setOpenDialog((prev) => !prev);
+                  }}
+                >
                   {isLoading ? (
                     <>
                       <LoaderCircleIcon className="animate-spin" />
@@ -135,7 +163,7 @@ const AddNewInterview = () => {
                   )}
                 </Button>
                 {/* </DialogTrigger> */}
-                <DialogTrigger asChild>
+                <DialogTrigger asChild onClick={formReset}>
                   <Button className="bg-red-500 text-white hover:bg-red-600">
                     Cancel
                   </Button>
