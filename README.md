@@ -24,3 +24,8 @@ Steps followed
 - Created `/dashboard/interview/[interviewId]/start` route where questions would be displayed along with the Camera and Microphone.
 - Used `react-hook-speech-to-text` for recording what user speaks and saved it in a state.
 - Did 8th `git commit` here.
+- Lifted the state of activeQuestionIndex from Questions.jsx
+- Used Gemini again to generate Feedback, similar to generating questions
+- In RecordedAnswers.jsx  recorded user response and saved it into the DB, each answer is saved corresponding to its question.
+- Added buttons at the bottom for switching the questions.
+- Did 9th `git commit` here.

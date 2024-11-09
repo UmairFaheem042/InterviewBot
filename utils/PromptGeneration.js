@@ -55,3 +55,24 @@ export const GeneratePrompt = async (jobRole, jobDesc, jobExp) => {
     console.log(error.message);
   }
 };
+
+
+export const FeedBackPrompt = async (question, answer) => {
+  console.log(answer);
+  const chatSession = model.startChat({
+    generationConfig,
+  });
+
+  const prompt = `Question: ${question}, User Answer: ${answer}, depending upon the question and answer provided give rating out of 10 for the answer as well as area for improvement if any. Make it in 3 - 5 lines. The response generated should be in JSON format from your side with rating and feedback fields`;
+
+  try {
+    const result = await chatSession.sendMessage(prompt);
+    const mockInterview = result.response
+      .text()
+      .replace("```json", "")
+      .replace("```", "");
+    return JSON.parse(mockInterview);
+  } catch (error) {
+    console.log(error.message);
+  }
+};

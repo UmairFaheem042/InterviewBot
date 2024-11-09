@@ -2,15 +2,18 @@
 
 import React, { useState } from "react";
 
-const Questions = ({ interviewData }) => {
-  const [activeQuestionIndex, setActiveQuestionIndex] = useState(1);
+const Questions = ({
+  interviewData,
+  activeQuestionIndex,
+  setActiveQuestionIndex,
+}) => {
   return (
     <div className="flex flex-col p-5 border rounded-lg">
-      <div className="flex gap-5 overflow-x-auto scrollbar-hide">
+      <div className="flex flex-wrap gap-5 overflow-x-auto scrollbar-hide">
         {interviewData?.map((question, index) => (
           <h2
             key={index}
-            className={`${
+            className={`flex-1 text-center ${
               index + 1 === activeQuestionIndex && "!bg-pink-500 text-white"
             } text-xs md:text-sm cursor-pointer px-4 py-2 bg-secondary rounded-lg whitespace-nowrap`}
             onClick={() => setActiveQuestionIndex(index + 1)}

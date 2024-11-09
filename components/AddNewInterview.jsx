@@ -35,7 +35,6 @@ const AddNewInterview = () => {
     e.preventDefault();
     setIsLoading(true);
     const result = await GeneratePrompt(jobRole, jobDesc, jobExp);
-    console.log(result.sampleQuestions);
     setInterviewResponse(result.sampleQuestions);
 
     // error

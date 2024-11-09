@@ -3,8 +3,14 @@ import React, { useEffect, useState } from "react";
 import { Button } from "./ui/button";
 import useSpeechToText from "react-hook-speech-to-text";
 import { Mic } from "lucide-react";
+import { toast, Toaster } from "sonner";
+import { db } from "../utils/db";
+import { FeedBackPrompt } from "../utils/PromptGeneration";
+import { UserResponse } from "../utils/schema";
+import moment from "moment/moment";
+import { useUser } from "@clerk/nextjs";
 
-const RecordAnswer = () => {
+const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
   const {
     error,
     interimResult,
@@ -16,19 +22,74 @@ const RecordAnswer = () => {
     continuous: true,
     useLegacyResults: false,
   });
+  const { user } = useUser();
 
   const [recordedAnswer, setRecordedAnswer] = useState("");
+  const [loading, setLoading] = useState(false);
+
+  // useEffect(() => {
+  //   results.map((result) =>
+  //     setRecordedAnswer((prev) => prev + result?.transcript)
+  //   );
+  // }, [results]);
 
   useEffect(() => {
-    results.map((result) =>
-      setRecordedAnswer((prev) => prev + result?.transcript)
-    );
+    if (interimResult) {
+      console.log("Interim result:", interimResult);
+      setRecordedAnswer((prev) => prev + interimResult); // Append interim results to recordedAnswer
+    }
+  }, [interimResult]);
+
+  useEffect(() => {
+    if (results.length > 0) {
+      console.log("Speech-to-text results:", results);
+      setRecordedAnswer(
+        (prev) => prev + results.map((result) => result?.transcript).join(" ")
+      );
+    }
   }, [results]);
 
+  async function saveUserAnswers() {
+    if (isRecording) {
+      setLoading(true);
+      stopSpeechToText();
+
+      if (interimResult.length < 10) {
+        setLoading(false);
+        toast("Your answer is too short, please elaborate more");
+        return;
+      }
+
+      setTimeout(async () => {
+        const result = await FeedBackPrompt(
+          interviewData[activeQuestionIndex - 1]?.question,
+          interimResult
+        );
+        console.log(result);
+        const resp = await db.insert(UserResponse).values({
+          mockIdRef: interviewId,
+          question: interviewData[activeQuestionIndex - 1]?.question,
+          correctAnswer: interviewData[activeQuestionIndex - 1]?.answer,
+          userAnswer: interimResult,
+          feedback: result?.feedback,
+          rating: result?.rating,
+          userEmail: user?.primaryEmailAddress?.emailAddress,
+          createdAt: moment().format("DD-MM-YYYY"),
+        });
+
+        if (resp) {
+          toast("Answer Saved Successfully");
+        }
+        setLoading(false);
+        setRecordedAnswer("");
+      }, 500);
+    } else {
+      startSpeechToText();
+    }
+  }
 
   return (
     <div className="flex flex-col gap-3 items-center justify-around p-5 border rounded-lg">
-      {/* <Webcam/> */}
       <Webcam
         className="bg-secondary"
         mirrored="true"
@@ -38,10 +99,7 @@ const RecordAnswer = () => {
           zIndex: 10,
         }}
       />
-      <Button
-        variant="outline"
-        onClick={isRecording ? stopSpeechToText : startSpeechToText}
-      >
+      <Button variant="outline" onClick={saveUserAnswers} disabled={loading}>
         {isRecording ? (
           <span className="text-red-500 flex items-center gap-2">
             <Mic />
@@ -51,6 +109,8 @@ const RecordAnswer = () => {
           "Record Answer"
         )}
       </Button>
+      {/* <Button onClick={() => console.log(recordedAnswer)}>Show Answer</Button> */}
+      <Toaster />
     </div>
   );
 };
