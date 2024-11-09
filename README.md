@@ -21,3 +21,6 @@ Steps followed
 - In [interviewId] folder, created page.jsx and in that fetched particular interview response from db.
 - Set up camera and microphone UI and configurations
 - Did 7th `git commit` here.
+- Created `/dashboard/interview/[interviewId]/start` route where questions would be displayed along with the Camera and Microphone.
+- Used `react-hook-speech-to-text` for recording what user speaks and saved it in a state.
+- Did 8th `git commit` here.

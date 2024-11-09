@@ -4,16 +4,15 @@ import { Lightbulb, WebcamIcon } from "lucide-react";
 import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
-const Interviews = ({ data }) => {
+const Interviews = ({ data, interviewId }) => {
   const [interviewData, setInterviewData] = useState([]);
   const [isCamOpen, setIsCamOpen] = useState(false);
 
   useEffect(() => {
     setInterviewData(data[0]);
   }, []);
-
-  //   console.log(JSON.parse(interviewData.jsonMockResp));
 
   return (
     <>
@@ -44,14 +43,22 @@ const Interviews = ({ data }) => {
                         borderRadius: "1rem",
                       }}
                     />
-                    <Button className="bg-transparent text-black hover:bg-transparent hover:underline outline-none" onClick={() => setIsCamOpen(false)}>
+                    <Button
+                      variant="outline"
+                      className=" text-black  hover:underline outline-none"
+                      onClick={() => setIsCamOpen(false)}
+                    >
                       Disable Camera and Microphone
                     </Button>
                   </>
                 ) : (
                   <>
                     <WebcamIcon className="h-60 w-60 p-12 rounded-lg border bg-secondary" />
-                    <Button className="bg-transparent text-black hover:bg-transparent hover:underline outline-none" onClick={() => setIsCamOpen(true)}>
+                    <Button
+                      variant="outline"
+                      className=" text-black hover:underline outline-none"
+                      onClick={() => setIsCamOpen(true)}
+                    >
                       Enable Camera and Microphone
                     </Button>
                   </>
@@ -88,8 +95,13 @@ const Interviews = ({ data }) => {
         </section>
 
         <div className="flex item-center justify-center">
-          <Button disabled={!isCamOpen} className="w-min">
-            Start Interview
+          <Button disabled={!isCamOpen} className=" w-min p-0 h-auto">
+            <Link
+              href={`/dashboard/interview/${interviewId}/start`}
+              className="px-4 py-3  sm:rounded-md sm:px-3  lg:rounded-md lg:px-8"
+            >
+              Start Interview
+            </Link>
           </Button>
         </div>
       </div>
