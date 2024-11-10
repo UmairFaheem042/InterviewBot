@@ -10,7 +10,7 @@ import { UserResponse } from "../utils/schema";
 import moment from "moment/moment";
 import { useUser } from "@clerk/nextjs";
 
-const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
+const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId, markAsAnswered, isAnswered }) => {
   const {
     error,
     interimResult,
@@ -30,7 +30,7 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
 
   useEffect(() => {
     if (interimResult) {
-      setRecordedAnswer((prev) => prev + interimResult); // Append interim results to recordedAnswer
+      setRecordedAnswer((prev) => prev + interimResult);
     }
   }, [interimResult]);
 
@@ -58,7 +58,7 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
           interviewData[activeQuestionIndex - 1]?.question,
           interimResult
         );
-        console.log(result);
+        // console.log(result);
         const resp = await db.insert(UserResponse).values({
           mockIdRef: interviewId,
           question: interviewData[activeQuestionIndex - 1]?.question,
@@ -72,6 +72,7 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
 
         if (resp) {
           toast("Answer Saved Successfully");
+          markAsAnswered(activeQuestionIndex); // Mark question as answered
         }
         setLoading(false);
         setRecordedAnswer("");
@@ -95,7 +96,7 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
           zIndex: 10,
         }}
       />
-      <Button variant="outline" onClick={saveUserAnswers} disabled={loading}>
+      <Button variant="outline" onClick={saveUserAnswers} disabled={loading || isAnswered}>
         {isRecording ? (
           <span className="text-red-500 flex items-center gap-2">
             <Mic />

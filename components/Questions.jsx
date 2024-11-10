@@ -27,9 +27,11 @@ const Questions = ({
       </p>
       <div className="text-sm flex items-center p-5 rounded-lg border-pink-300 border bg-pink-100">
         <p className="text-pink-500">
-          Click on <b>Record Answer</b> when you are ready with an answer. At
-          the end of the interview we will give you feedback along with correct
-          answers for each question.
+          Click on <b>Record Answer</b> when you are ready with an answer.
+          <br />
+          <br />
+          <b>Note</b>: You can only record once and can not go back to previous
+          questions in any case.
         </p>
       </div>
     </div>

@@ -32,3 +32,6 @@ Steps followed
 - Created `/dashboard/interview/[interviewId]/feedback` route where user can see all Feedback of the interview
 - on `/dashboard` route to each Interview Box, added delete button and created a delete handler but it is incomplete as there is an error regarding the attribute onClick. I am in server component and using events which should be of client component
 - Did 10th `git commit` here.
+- Solved Delete issue by taking delete handler to the client component(it's child)
+- On /dashboard route, handled UI where no interviews are there by conditional rendering.
+- Did 11th `git commit` here.

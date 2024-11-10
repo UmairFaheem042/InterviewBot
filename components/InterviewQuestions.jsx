@@ -9,12 +9,19 @@ import Link from "next/link";
 const InterviewQuestions = ({ data }) => {
   const [interviewData, setInterviewData] = useState([]);
   const [activeQuestionIndex, setActiveQuestionIndex] = useState(1);
+  const [answeredQuestions, setAnsweredQuestions] = useState(new Set());
   const interviewId = data?.mockId || "";
 
   useEffect(() => {
     setInterviewData(JSON.parse(data.jsonMockResp));
   }, []);
 
+  const markAsAnswered = (index) => {
+    setAnsweredQuestions((prev) => new Set(prev).add(index));
+  };
+
+  const canNavigatePrevious =
+    activeQuestionIndex > 1 && !answeredQuestions.has(activeQuestionIndex - 1);
 
   return (
     <div className="flex flex-col gap-5">
@@ -28,37 +35,40 @@ const InterviewQuestions = ({ data }) => {
           interviewData={interviewData}
           activeQuestionIndex={activeQuestionIndex}
           interviewId={interviewId}
+          markAsAnswered={markAsAnswered}
+          isAnswered={answeredQuestions.has(activeQuestionIndex)}
         />
       </div>
 
       <div className="grid grid-cols-1 gap-2 sm:flex sm:items-center sm:gap-5 sm:justify-between">
-        <Button
+        {/* <Button
           className="min-w-[100px]"
           onClick={() => {
-            if (activeQuestionIndex > 1) {
+            if (canNavigatePrevious) {
               setActiveQuestionIndex((prev) => prev - 1);
             }
           }}
-          disabled={activeQuestionIndex === 1}
+          disabled={!canNavigatePrevious}
         >
           Previous
+        </Button> */}
+
+        <Button
+          className="min-w-[100px]"
+          onClick={() => {
+            if (activeQuestionIndex < interviewData.length) {
+              setActiveQuestionIndex((prev) => prev + 1);
+            }
+          }}
+          disabled={activeQuestionIndex >= interviewData.length}
+        >
+          Next Question
         </Button>
         <Link href={`/dashboard/interview/${interviewId}/feedback`}>
           <Button className="min-w-[100px] bg-red-500 hover:bg-red-400">
             End Interview
           </Button>
         </Link>
-        <Button
-          className="min-w-[100px]"
-          onClick={() => {
-            if (activeQuestionIndex < 10) {
-              setActiveQuestionIndex((prev) => prev + 1);
-            }
-          }}
-          disabled={activeQuestionIndex === 10}
-        >
-          Next
-        </Button>
       </div>
     </div>
   );

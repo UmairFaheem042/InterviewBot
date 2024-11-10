@@ -21,7 +21,7 @@ import { v4 as uuidv4 } from "uuid";
 import moment from "moment";
 import { useRouter } from "next/navigation";
 
-const AddNewInterview = () => {
+const AddNewInterview = ({ label }) => {
   const [openDialog, setOpenDialog] = useState(false);
   const [jobRole, setJobRole] = useState("");
   const [jobDesc, setJobDesc] = useState("");
@@ -78,7 +78,7 @@ const AddNewInterview = () => {
     <div className="">
       <Dialog open={openDialog} className="relative">
         <DialogTrigger asChild onClick={() => setOpenDialog((prev) => !prev)}>
-          <Button>+ New Interview</Button>
+          <Button>{label ? label : "+ New Interview"}</Button>
         </DialogTrigger>
         <DialogContent>
           <DialogHeader>
@@ -96,10 +96,10 @@ const AddNewInterview = () => {
               Add details about the job interview you are preparing
             </DialogDescription>
             <form onSubmit={handleStartInterview}>
-              <div className="mt-4">
+              <div className="mt-4 w-full text-start">
                 <label
                   htmlFor=""
-                  className="font-normal text-[0.9rem] text-gray-400"
+                  className="font-normal  text-start text-[0.9rem] text-gray-400"
                 >
                   Job Role or Position
                 </label>
@@ -111,7 +111,7 @@ const AddNewInterview = () => {
                   onChange={(e) => setJobRole(e.target.value)}
                 />
               </div>
-              <div className="mt-4">
+              <div className="mt-4 w-full text-start">
                 <label
                   htmlFor=""
                   className="font-normal text-[0.9rem] text-gray-400"
@@ -125,7 +125,7 @@ const AddNewInterview = () => {
                   required
                 />
               </div>
-              <div className="mt-4">
+              <div className="mt-4 w-full text-start">
                 <label
                   htmlFor=""
                   className="font-normal text-[0.9rem] text-gray-400"
