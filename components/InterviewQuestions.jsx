@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import Questions from "./Questions";
 import RecordAnswer from "./RecordAnswer";
 import { Button } from "./ui/button";
+import Link from "next/link";
 
 const InterviewQuestions = ({ data }) => {
   const [interviewData, setInterviewData] = useState([]);
@@ -14,7 +15,6 @@ const InterviewQuestions = ({ data }) => {
     setInterviewData(JSON.parse(data.jsonMockResp));
   }, []);
 
-  console.log(activeQuestionIndex);
 
   return (
     <div className="flex flex-col gap-5">
@@ -43,14 +43,11 @@ const InterviewQuestions = ({ data }) => {
         >
           Previous
         </Button>
-        <Button
-          className="min-w-[100px] bg-red-500 hover:bg-red-400"
-          onClick={() => {
-            console.log("Ending interview...");
-          }}
-        >
-          End Interview
-        </Button>
+        <Link href={`/dashboard/interview/${interviewId}/feedback`}>
+          <Button className="min-w-[100px] bg-red-500 hover:bg-red-400">
+            End Interview
+          </Button>
+        </Link>
         <Button
           className="min-w-[100px]"
           onClick={() => {

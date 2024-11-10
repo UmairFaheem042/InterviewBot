@@ -29,3 +29,6 @@ Steps followed
 - In RecordedAnswers.jsx  recorded user response and saved it into the DB, each answer is saved corresponding to its question.
 - Added buttons at the bottom for switching the questions.
 - Did 9th `git commit` here.
+- Created `/dashboard/interview/[interviewId]/feedback` route where user can see all Feedback of the interview
+- on `/dashboard` route to each Interview Box, added delete button and created a delete handler but it is incomplete as there is an error regarding the attribute onClick. I am in server component and using events which should be of client component
+- Did 10th `git commit` here.

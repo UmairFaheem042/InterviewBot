@@ -16,6 +16,7 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
     interimResult,
     isRecording,
     results,
+    setResults,
     startSpeechToText,
     stopSpeechToText,
   } = useSpeechToText({
@@ -27,22 +28,14 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
   const [recordedAnswer, setRecordedAnswer] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // useEffect(() => {
-  //   results.map((result) =>
-  //     setRecordedAnswer((prev) => prev + result?.transcript)
-  //   );
-  // }, [results]);
-
   useEffect(() => {
     if (interimResult) {
-      console.log("Interim result:", interimResult);
       setRecordedAnswer((prev) => prev + interimResult); // Append interim results to recordedAnswer
     }
   }, [interimResult]);
 
   useEffect(() => {
     if (results.length > 0) {
-      console.log("Speech-to-text results:", results);
       setRecordedAnswer(
         (prev) => prev + results.map((result) => result?.transcript).join(" ")
       );
@@ -82,10 +75,13 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
         }
         setLoading(false);
         setRecordedAnswer("");
+        setResults([]);
       }, 500);
     } else {
       startSpeechToText();
     }
+    setRecordedAnswer("");
+    setResults([]);
   }
 
   return (
@@ -109,7 +105,6 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId }) => {
           "Record Answer"
         )}
       </Button>
-      {/* <Button onClick={() => console.log(recordedAnswer)}>Show Answer</Button> */}
       <Toaster />
     </div>
   );
