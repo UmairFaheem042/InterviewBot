@@ -26,7 +26,7 @@ Steps followed
 - Did 8th `git commit` here.
 - Lifted the state of activeQuestionIndex from Questions.jsx.
 - Used Gemini again to generate Feedback, similar to generating questions
-- In RecordedAnswers.jsx  recorded user response and saved it into the DB, each answer is saved corresponding to its question.
+- In RecordedAnswers.jsx recorded user response and saved it into the DB, each answer is saved corresponding to its question.
 - Added buttons at the bottom for switching the questions.
 - Did 9th `git commit` here.
 - Created `/dashboard/interview/[interviewId]/feedback` route where user can see all Feedback of the interview.
@@ -36,3 +36,7 @@ Steps followed
 - Added Confirm Delete Dialog Box from shadcn/ui.
 - On /dashboard route, handled UI where no interviews are there by conditional rendering.
 - Did 11th `git commit` here.
+- Fixed the bug while Recording the answers, the bug was i was able to record answer again for same question, so i used sessionStorage to keep a track of the questions
+- Another bug was that i was unable to record answer again(try again) in case the response was not saved to DB.
+- Found another bug, I was fetching All Interview on /dashboard route including of other users. To solve this changed component to client component and used useUser() to get user info and based on that applied where clause while fetching.
+- Did 12th `git commit` here.

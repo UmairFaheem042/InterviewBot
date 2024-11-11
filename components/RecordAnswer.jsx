@@ -10,7 +10,13 @@ import { UserResponse } from "../utils/schema";
 import moment from "moment/moment";
 import { useUser } from "@clerk/nextjs";
 
-const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId, markAsAnswered, isAnswered }) => {
+const RecordAnswer = ({
+  interviewData,
+  activeQuestionIndex,
+  interviewId,
+  markAsAnswered,
+  isAnswered,
+}) => {
   const {
     error,
     interimResult,
@@ -27,6 +33,13 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId, markAsA
 
   const [recordedAnswer, setRecordedAnswer] = useState("");
   const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const savedIndex = sessionStorage.getItem("activeQuestionIndex");
+    if (savedIndex) {
+      markAsAnswered(Number(savedIndex));
+    }
+  }, []);
 
   useEffect(() => {
     if (interimResult) {
@@ -47,36 +60,41 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId, markAsA
       setLoading(true);
       stopSpeechToText();
 
-      if (interimResult.length < 10) {
+      if (interimResult?.length < 10) {
         setLoading(false);
         toast("Your answer is too short, please elaborate more");
         return;
       }
 
       setTimeout(async () => {
-        const result = await FeedBackPrompt(
-          interviewData[activeQuestionIndex - 1]?.question,
-          interimResult
-        );
-        // console.log(result);
-        const resp = await db.insert(UserResponse).values({
-          mockIdRef: interviewId,
-          question: interviewData[activeQuestionIndex - 1]?.question,
-          correctAnswer: interviewData[activeQuestionIndex - 1]?.answer,
-          userAnswer: interimResult,
-          feedback: result?.feedback,
-          rating: result?.rating,
-          userEmail: user?.primaryEmailAddress?.emailAddress,
-          createdAt: moment().format("DD-MM-YYYY"),
-        });
+        try {
+          const result = await FeedBackPrompt(
+            interviewData[activeQuestionIndex - 1]?.question,
+            interimResult
+          );
+          const resp = await db.insert(UserResponse).values({
+            mockIdRef: interviewId,
+            question: interviewData[activeQuestionIndex - 1]?.question,
+            correctAnswer: interviewData[activeQuestionIndex - 1]?.answer,
+            userAnswer: interimResult,
+            feedback: result?.feedback,
+            rating: result?.rating,
+            userEmail: user?.primaryEmailAddress?.emailAddress,
+            createdAt: moment().format("DD-MM-YYYY"),
+          });
 
-        if (resp) {
-          toast("Answer Saved Successfully");
-          markAsAnswered(activeQuestionIndex); // Mark question as answered
+          if (resp) {
+            toast("Answer Saved Successfully");
+            markAsAnswered(activeQuestionIndex);
+            sessionStorage.setItem("activeQuestionIndex", activeQuestionIndex);
+          }
+        } catch (error) {
+          toast("Failed to save answer. Please try again.");
+          setResults([]);
+        } finally {
+          setLoading(false);
+          setRecordedAnswer("");
         }
-        setLoading(false);
-        setRecordedAnswer("");
-        setResults([]);
       }, 500);
     } else {
       startSpeechToText();
@@ -96,7 +114,11 @@ const RecordAnswer = ({ interviewData, activeQuestionIndex, interviewId, markAsA
           zIndex: 10,
         }}
       />
-      <Button variant="outline" onClick={saveUserAnswers} disabled={loading || isAnswered}>
+      <Button
+        variant="outline"
+        onClick={saveUserAnswers}
+        disabled={loading || isAnswered}
+      >
         {isRecording ? (
           <span className="text-red-500 flex items-center gap-2">
             <Mic />

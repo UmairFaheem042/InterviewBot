@@ -40,7 +40,7 @@ const InterviewQuestions = ({ data }) => {
         />
       </div>
 
-      <div className="grid grid-cols-1 gap-2 sm:flex sm:items-center sm:gap-5 sm:justify-between">
+      <div className="grid grid-cols-1 gap-2 sm:flex sm:items-center sm:gap-5 sm:justify-end">
         {/* <Button
           className="min-w-[100px]"
           onClick={() => {
@@ -64,8 +64,8 @@ const InterviewQuestions = ({ data }) => {
         >
           Next Question
         </Button>
-        <Link href={`/dashboard/interview/${interviewId}/feedback`}>
-          <Button className="min-w-[100px] bg-red-500 hover:bg-red-400">
+        <Link href={`/dashboard/interview/${interviewId}/feedback`} className="">
+          <Button className="min-w-[100px] w-full md:w-auto bg-red-500 hover:bg-red-400">
             End Interview
           </Button>
         </Link>

@@ -14,7 +14,7 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
             <Link href="/dashboard" className="block text-teal-600">
-              <img src="/logo.svg" alt="Logo404" className="w-[70px]" />
+              <img src="/logo.svg" alt="Logo404" className="w-[50px]" />
             </Link>
           </div>
 
@@ -37,42 +37,13 @@ const Header = () => {
                 <li>
                   <Link
                     className={`${
-                      // currentTab === "/questions"
-                      currentTab.startsWith("/questions")
+                      currentTab.startsWith("/about")
                         ? "text-pink-500 font-bold"
                         : "text-gray-500 hover:text-gray-500/75"
                     } transition `}
-                    href="questions"
+                    href="/about"
                   >
-                    Questions
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className={`${
-                      // currentTab === "/upgrade"
-                      currentTab.startsWith("/upgrade")
-                        ? "text-pink-500 font-bold"
-                        : "text-gray-500 hover:text-gray-500/75"
-                    } transition `}
-                    href="/upgrade"
-                  >
-                    Upgrade
-                  </Link>
-                </li>
-
-                <li>
-                  <Link
-                    className={`${
-                      // currentTab === "/working"
-                      currentTab.startsWith("/working")
-                        ? "text-pink-500 font-bold"
-                        : "text-gray-500 hover:text-gray-500/75"
-                    } transition `}
-                    href="/working"
-                  >
-                    How it Works?
+                    About Us
                   </Link>
                 </li>
               </ul>
@@ -130,42 +101,14 @@ const Header = () => {
                   <li>
                     <Link
                       className={`${
-                        // currentTab === "/questions"
-                        currentTab.startsWith("/questions")
-                          ? "text-pink-500 font-bold"
-                          : "text-gray-500 hover:text-gray-500/75"
-                      } transition `}
-                      href="questions"
-                    >
-                      Questions
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      className={`${
                         // currentTab === "/upgrade"
-                        currentTab.startsWith("/upgrade")
+                        currentTab.startsWith("/about")
                           ? "text-pink-500 font-bold"
                           : "text-gray-500 hover:text-gray-500/75"
                       } transition `}
-                      href="/upgrade"
+                      href="/about"
                     >
-                      Upgrade
-                    </Link>
-                  </li>
-
-                  <li>
-                    <Link
-                      className={`${
-                        // currentTab === "/working"
-                        currentTab.startsWith("/working")
-                          ? "text-pink-500 font-bold"
-                          : "text-gray-500 hover:text-gray-500/75"
-                      } transition `}
-                      href="/working"
-                    >
-                      How it Works?
+                      About Us
                     </Link>
                   </li>
                 </ul>

@@ -8,9 +8,9 @@ import {
   CollapsibleTrigger,
 } from "../../../../../../components/ui/collapsible";
 import { ChevronsUpDown } from "lucide-react";
+import Link from "next/link";
 
 const page = async ({ params }) => {
-  const interviewId = params.interviewId;
   let data;
   let overallRating;
   try {
@@ -23,7 +23,7 @@ const page = async ({ params }) => {
     overallRating = parseFloat(
       (
         data
-          .map((item) => parseFloat(item.rating)) // Extract and convert each rating to a number
+          .map((item) => parseFloat(item.rating))
           .reduce((sum, rating) => sum + rating, 0) / data.length
       ).toFixed(2)
     );
@@ -41,7 +41,6 @@ const page = async ({ params }) => {
           Here's your feedback
         </h2>
         <div className="  flex flex-col justify-center items-center gap-2">
-          {/* <span>Your Rating</span> */}
           <h4 className=" border-4 border-pink-100 rounded-xl p-5 text-pink-300">
             {overallRating ? (
               <>
@@ -73,7 +72,6 @@ const page = async ({ params }) => {
                   {item.rating}/10
                 </div>
                 <div className="p-4 bg-pink-100 text-red-600 rounded-lg">
-                  {/* <p className="text-red-400"> */}
                   <span className="text-red-800 font-semibold ">
                     Your Answer:{" "}
                   </span>
@@ -96,7 +94,9 @@ const page = async ({ params }) => {
           ))}
         </div>
 
-        <Button>Go To Dashboard</Button>
+        <Link href={"/dashboard"}>
+          <Button>Go To Dashboard</Button>
+        </Link>
       </div>
     </div>
   );
