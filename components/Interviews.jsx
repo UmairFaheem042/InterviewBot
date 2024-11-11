@@ -5,6 +5,8 @@ import React, { useEffect, useState } from "react";
 import Webcam from "react-webcam";
 import { Button } from "./ui/button";
 import Link from "next/link";
+import { Oval } from "react-loader-spinner";
+import LoadingScreen from "./LoadingScreen";
 
 const Interviews = ({ data, interviewId }) => {
   const [interviewData, setInterviewData] = useState([]);

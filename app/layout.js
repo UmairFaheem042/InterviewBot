@@ -5,7 +5,7 @@ export const metadata = {
   title: "AI Mock Interview Platform",
   description: "Developed by Umair Faheem",
   icons: {
-    icon: "/logo.svg", // Replace with your favicon file path if different
+    icon: "/logo.svg", 
   },
 };
 

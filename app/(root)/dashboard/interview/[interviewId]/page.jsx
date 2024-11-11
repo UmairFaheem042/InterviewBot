@@ -14,7 +14,7 @@ const InterviewPage = async ({ params }) => {
 
   return (
     <>
-      <Interviews data={data} interviewId={interviewId}/>
+      <Interviews data={data} interviewId={interviewId} />
     </>
   );
 };

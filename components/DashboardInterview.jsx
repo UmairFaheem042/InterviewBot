@@ -18,26 +18,29 @@ import { eq } from "drizzle-orm";
 import { MockInterview, UserResponse } from "../utils/schema";
 import { toast } from "sonner";
 
-const DashboardInterview = ({ mockId }) => {
+const DashboardInterview = ({ mockId, setIsLoading, fetchData }) => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
 
   async function handleDelete(mockId) {
     try {
+      setIsLoading(true);
       await db.delete(UserResponse).where(eq(UserResponse.mockIdRef, mockId));
       await db.delete(MockInterview).where(eq(MockInterview.mockId, mockId));
       console.log(
         `Interview with mockId: ${mockId} and its responses have been deleted.`
       );
-      router.refresh();
-      setTimeout(() => {
-        setOpen(false);
-      }, 1000);
 
+      setOpen(false);
       toast("Interview deleted successfully");
+
+      
+      fetchData();
     } catch (error) {
       console.error("Error deleting interview and responses:", error);
       toast("An error occurred!!!");
+    } finally {
+      setIsLoading(false);
     }
   }
   return (

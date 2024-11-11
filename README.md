@@ -40,3 +40,5 @@ Steps followed
 - Another bug was that i was unable to record answer again(try again) in case the response was not saved to DB.
 - Found another bug, I was fetching All Interview on /dashboard route including of other users. To solve this changed component to client component and used useUser() to get user info and based on that applied where clause while fetching.
 - Did 12th `git commit` here.
+- Added Loading Screen in between deletion process.
+- Did 13th `git commit` here.
