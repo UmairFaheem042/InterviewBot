@@ -14,7 +14,7 @@ const page = () => {
             </strong>
             <p className="mt-4 text-sm md:text-md">
               Our platform offers realistic, AI-powered mock interviews to help
-              you practice and improve your interview skills. Whether you're a
+              you practice and improve your interview skills. Whether you are a
               beginner or a seasoned professional, our tool helps you feel
               prepared and confident in any interview setting.
             </p>

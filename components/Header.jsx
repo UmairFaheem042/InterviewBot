@@ -1,6 +1,7 @@
 "use client";
 
 import { UserButton } from "@clerk/nextjs";
+import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
@@ -14,7 +15,7 @@ const Header = () => {
         <div className="flex h-16 items-center justify-between">
           <div className="md:flex md:items-center md:gap-12">
             <Link href="/dashboard" className="block text-teal-600">
-              <img src="/logo.svg" alt="Logo404" className="w-[50px]" />
+              <Image src="/logo.svg" alt="Logo404" className="w-[50px]" />
             </Link>
           </div>
 

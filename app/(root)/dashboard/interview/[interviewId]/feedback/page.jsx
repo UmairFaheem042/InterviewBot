@@ -38,7 +38,7 @@ const page = async ({ params }) => {
           Congratulations
         </h1>
         <h2 className="font-semibold text-xl md:text-2xl text-gray-400">
-          Here's your feedback
+          Here is your feedback
         </h2>
         <div className="  flex flex-col justify-center items-center gap-2">
           <h4 className=" border-4 border-pink-100 rounded-xl p-5 text-pink-300">
