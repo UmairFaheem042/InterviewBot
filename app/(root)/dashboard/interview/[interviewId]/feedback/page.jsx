@@ -55,9 +55,16 @@ const page = async ({ params }) => {
           </h4>
         </div>
         <div className="w-full flex flex-col gap-4 transition-all">
-          <h1 className="text-gray-400 p-2">
-            Below are questions along with the answers and rating.
-          </h1>
+          {data.length !== 0 && (
+            <h1 className="text-gray-400 p-2 text-center">
+              Below are questions along with the answers and rating.
+            </h1>
+          )}
+          {data.length === 0 && (
+            <h1 className="text-gray-400 p-2 text-center">
+              You have not attended any question
+            </h1>
+          )}
           {data?.map((item) => (
             <Collapsible key={item.id} className="flex flex-col gap-1">
               <CollapsibleTrigger className="text-start flex justify-between items-center w-full p-2 bg-[rgba(0,0,0,0.03)] rounded-lg">

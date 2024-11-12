@@ -52,16 +52,16 @@ const DashboardInterview = ({ mockId, setIsLoading, fetchData }) => {
         >
           Delete
         </AlertDialogTrigger>
-        <AlertDialogContent>
+        <AlertDialogContent className="w-[90%] rounded-md">
           <AlertDialogHeader>
             <AlertDialogTitle>Are you sure?</AlertDialogTitle>
-            <AlertDialogDescription>
+            <AlertDialogDescription className="text-[0.8rem] md:text-[0.9rem]">
               This action cannot be undone. This will permanently interview
               record from database.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel onClick={() => setOpen(false)}>
+            <AlertDialogCancel onClick={() => setOpen(false)} className="text-[0.8rem] md:text-[0.9rem]">
               Cancel
             </AlertDialogCancel>
             <AlertDialogAction
@@ -69,6 +69,7 @@ const DashboardInterview = ({ mockId, setIsLoading, fetchData }) => {
                 e.preventDefault();
                 handleDelete(mockId);
               }}
+              className="text-[0.8rem] md:text-[0.9rem]"
             >
               Confirm
             </AlertDialogAction>

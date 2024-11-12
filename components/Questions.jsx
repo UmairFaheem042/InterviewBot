@@ -9,7 +9,7 @@ const Questions = ({
 }) => {
   return (
     <div className="flex flex-col p-5 border rounded-lg">
-      <div className="flex flex-wrap gap-5 overflow-x-auto scrollbar-hide">
+      <div className="hidden md:flex md:flex-wrap md:gap-5 md:overflow-x-auto md:scrollbar-hide">
         {interviewData?.map((question, index) => (
           <h2
             key={index}
@@ -22,7 +22,7 @@ const Questions = ({
           </h2>
         ))}
       </div>
-      <p className="flex-1 my-7 text-lg font-medium">
+      <p className="flex-1 mb-7 md:my-7 text-lg font-medium">
         {interviewData[activeQuestionIndex - 1]?.question}
       </p>
       <div className="text-sm flex items-center p-5 rounded-lg border-pink-300 border bg-pink-100">

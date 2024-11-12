@@ -2,8 +2,9 @@
 @tailwind components;
 @tailwind utilities;
 
+
 body {
-  /* font-family: "Metropolis", sans-serif; */
+  min-height: 100dvh;
   font-family: "Poppins", sans-serif;
 }
 
