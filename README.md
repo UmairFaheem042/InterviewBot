@@ -42,5 +42,5 @@ Steps followed
 - Did 12th `git commit` here.
 - Added Loading Screen in between deletion process.
 - Did 13th `git commit` here.
-- Fixed mobile screen issues where extra white space(more height) was shown, it was because of Header component.
+- Fixed mobile responsive issues where extra white space(more height) was visible, it was because of Header component.
 - Did 14th `git commit` here.
