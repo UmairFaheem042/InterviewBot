@@ -1,4 +1,33 @@
-Steps followed
+### Screesnshots:
+![Authentication](/public/SS0.png)
+
+<hr/>
+
+![Dashboard](/public/SS1.png)
+
+<hr/>
+
+![Add Interview](/public/SS2.png)
+
+<hr/>
+
+![Interview Details, without camera permissions](/public/SS3.png)
+
+<hr/>
+
+![Interview Details, with camera permissions](/public/SS4.png)
+
+<hr/>
+
+![Questions Page](/public/SS5.png)
+
+<hr/>
+
+![Feedback Page](/public/SS6.png)
+
+<hr/>
+
+### Project Journey:
 
 - Default 1st `git commit` here.
 - Iniatialised new Next project.
