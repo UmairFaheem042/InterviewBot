@@ -11,8 +11,6 @@ export default function Page() {
             src="/authImage.jpg"
             className="absolute inset-0 h-full w-full object-cover"
             fill
-            width={100}
-            height={100}
           />
         </aside>
 
